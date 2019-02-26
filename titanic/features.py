@@ -35,6 +35,9 @@ class FeatureEngineer(object):
         test_df = test_df.drop(['Name'], axis=1)
         combine = [train_df, test_df]
 
+        for dataset in combine:
+            dataset['Sex'] = dataset['Sex'].map({'female': 1, 'male': 0}).astype(int)
+
         # Converting features
         # Completing Age
         guess_ages = np.zeros((2, 3))

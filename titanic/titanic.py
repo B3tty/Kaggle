@@ -7,7 +7,6 @@ import pandas as pd
 # import seaborn as sns
 # import matplotlib.pyplot as plt
 # #matplotlib inline
-# import cufflinks as cf
 #
 # # machine learning
 # from sklearn.linear_model import LogisticRegression
@@ -32,5 +31,12 @@ feature_engineer = ft.FeatureEngineer()
 combine = feature_engineer.engineer(combine)
 
 # Modelisation
-modeler = models.Model()
-modeler.logistic_regression(combine)
+modeler = models.Model(combine)
+prediction = modeler.random_forest()
+
+# Output formatting
+submission = pd.DataFrame({
+        "PassengerId": test_df["PassengerId"],
+        "Survived": prediction
+    })
+submission.to_csv('output/submission.csv', index=False)
